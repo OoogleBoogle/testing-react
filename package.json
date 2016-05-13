@@ -1,0 +1,50 @@
+{
+  "name": "testing-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/js/index.jsx",
+  "scripts": {
+    "test": "mocha --compilers js:babel-register test/**/*.js*",
+    "setup:react": "ditto -rsrc ~/Desktop/react-setup . && npm i babel-core babel-loader babel-preset-es2015 babel-preset-react chokidar-cli webpack mocha chai react-addons-test-utils babel-register --save-dev && npm i react react-dom --save && git init && git add . && git commit -m \"Initial Commit\" && hub create && git push origin master",
+    "setup:react:eslint": "ditto -rsrc ~/Documents/react-setup/ . && npm i eslint-plugin-standard eslint-config-standard eslint-plugin-promise babel-core babel-loader babel-preset-es2015 babel-preset-react chokidar-cli webpack mocha chai react-addons-test-utils babel-register --save-dev && npm i react react-dom --save && eslint --init && git init && git add . && git commit -m \"Initial Commit\" && hub create && git push origin master",
+    "mkdir": "mkdir -p build && mkdir build/js build/css",
+    "serve": "webpack-dev-server",
+    "clean": "rm -rf build",
+    "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:js && npm run build:css",
+    "watch": "npm run clean && npm run watch:html & npm run watch:css & npm run watch:js",
+    "build:html": "npm run clean:html && cp ./src/index.html build/",
+    "clean:html": "rm -f build/index.html",
+    "watch:html": "npm run build:html && chokidar src/index.html -c 'npm run build:html'",
+    "build:css:minified": "npm run clean:css && sass src/scss/main.scss:build/css/main.css --style compressed",
+    "build:css": "npm run clean:css && sass src/scss/main.scss:build/css/main.css",
+    "clean:css": "rm -f build/*.css build/*.css.map",
+    "watch:css": "sass --watch src/scss:build/css",
+    "build:js": "npm run clean:js && webpack",
+    "watch:js": "npm run build:js && webpack --watch",
+    "clean:js": "rm -f build/js/*.js build/js/*.js.map"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.8.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-register": "^6.8.0",
+    "chai": "^3.5.0",
+    "chokidar-cli": "^1.2.0",
+    "mocha": "^2.4.5",
+    "react-addons-test-utils": "^15.0.2",
+    "webpack": "^1.13.0"
+  },
+  "dependencies": {
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2"
+  }
+}
